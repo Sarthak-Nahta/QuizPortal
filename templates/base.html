@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    
+    <title>{% block title %} {% endblock title %}</title>
+  </head>
+  <body style="background: #b9daf1;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Quiz Portal</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/user-dashboard/">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/my-flashcards/">Flashcards</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/atlas-quiz">Atlas Quiz</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'add' %}">Add</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'subtract' %}">Subtract</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'multiply' %}">Multiply</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'divide' %}">Divide</a>
+          </li>
+          
+        </ul>
+        
+        {% else %}
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about-us">About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact-us">Contact us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/atlas-quiz">Atlas Quiz</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'add' %}">Add</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'subtract' %}">Subtract</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'multiply' %}">Multiply</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'divide' %}">Divide</a>
+          </li>  
+               
+        </ul>
+        {% endif %}
+       {% if user.is_authenticated %}
+         <div class="form-inline my-2 my-lg-0">
+          <a href="/user-account"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Account</button></a> 
+        </div>
+          <div class="form-inline my-2 my-lg-0 ml-1">
+            <a href="/user-logout"><button class="btn btn-outline-success my-2 my-sm-0">Logout</button></a> 
+          </div>
+        {% else %}
+          <div class="form-inline my-2 my-lg-0">
+          <a href="/create-new-account"><button class="btn btn-outline-success my-2 my-sm-0">Create New Account</button></a> 
+        </div>
+        <div class="form-inline mx-2 my-2 my-lg-0">
+          <a href="/user-login"><button class="btn btn-outline-success my-2 my-sm-0">Login</button></a> 
+        </div>
+        {% endif %}
+
+      </div>
+    </nav>
+
+    {% block body %} {% endblock body %}
+
+    <script src="../static/js/jquery.slim.min.js"></script>
+    <script src="../static/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $(".flip-card-front").click(function()
+          { 
+            $(".flip-card-inner").css({transform: 'rotateY(-180deg)'});
+          });
+        $(".flip-card-back").click(function()
+          { 
+            $(".flip-card-inner").css({transform: ''});
+          });
+        $(".carousel-control-prev").click(function()
+          { 
+            $(".flip-card-inner").css({transform: ''});
+          });
+        $(".carousel-control-next").click(function()
+          { 
+            $(".flip-card-inner").css({transform: ''});
+          });
+      });
+      </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+Flashcards
+{% endblock title %}
+{% block body %}
+<div class="container-fluid">
+    <a href="/create-new-flashcards/" class="btn btn-primary mt-4">Create new flashcards</a>
+    <h1>My Flashcards</h1>
+    <div class=" d-flex flex-row">
+        {% for flashcard in flashcards %}
+        <div class="card mb-3" style="width: 18rem; background-color: rgb(198, 236, 223);">
+            <img src="" alt="no image" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{flashcard.name}}</h5>
+                <p class="card-text">{{flashcard.para}}</p>
+                <a href="/start-flashcards-{{flashcard.pk}}/" class="btn btn-primary mt-1">Start</a>
+                <a href="/delete-flashcards-{{flashcard.pk}}/" class="btn btn-primary mt-1" onclick="return confirm('Do you really want to delete these flashcards permanently?');">Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}

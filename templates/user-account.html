@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block title %}
+user account
+{% endblock title %}
+{% block body %}
+<div class="container my-5">
+    <form>
+        <div class="form-group">
+            <label for="formGroupExampleInput">First Name</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" name="fname" value={{user.first_name}} disabled = true>
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Last Name</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" name = "lname" required value={{user.last_name}} disabled = true >
+        </div>
+        <div class="form-group" value={{gender}}>
+            <label for="formGroupExampleInput2">Gender</label>
+            <div class="form-check">
+                {%if user.gender == 'Male'%}
+                <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Male"
+                    checked disabled = true>
+                <label class="form-check-label" for="exampleRadios1">
+                    Male
+                </label>
+                {% else %}
+                <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Male" disabled = true>
+                <label class="form-check-label" for="exampleRadios1">
+                    Male
+                </label>
+                {% endif %}
+            </div>
+            
+            <div class="form-check">
+                {% if user.gender == 'Female' %}
+                <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Female" checked disabled = true>            
+                {% else %}
+                <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Female" disabled = true>
+                {% endif %}
+                <label class="form-check-label" for="exampleRadios2">
+                    Female
+                </label>
+            </div>
+            <div class="form-check">
+                {% if user.gender == 'Others' %}
+                <input class="form-check-input" type="radio" name="gender" id="exampleRadios3" value="Others" checked disabled = true>
+                {% else %}                
+                <input class="form-check-input" type="radio" name="gender" id="exampleRadios3" value="Others" disabled = true>
+                {% endif %}
+                <label class="form-check-label" for="exampleRadios3">
+                    Others
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">School Name</label>
+            <!-- <input type="text" class="form-control" id="formGroupExampleInput3" name = "school_name" required value={{user.school.school_name}} disabled = true> -->
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="school" name = "school" required value="{{user.school.pk}}" disabled = true>
+                {% for school in schools %}
+                    <option value="{{user.school.pk}}">{{user.school.school_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Standard Id</label>
+            <!-- <input type="text" class="form-control" id="formGroupExampleInput3" name = "standard_id" required value={{user.standard.pk}} > -->
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="standard" name = "standard" required value="{{user.standard.pk}}"  disabled = true>
+                <option value="{{user.standard.pk}}">{{user.standard.school.school_name}} - {{user.standard.standard_name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Section Id</label>
+            <!-- <input type="text" class="form-control" id="formGroupExampleInput3" name = "section_id" required value={{user.section.pk}} > -->
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="section" name = "section" required value="{{user.section.pk}}"  disabled = true>
+                <option value="{{user.section.pk}}">{{user.section.standard.school.school_name}} - {{user.section.standard.standard_name}} - {{user.section.section_name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">ID Number</label>
+            <input type="text" class="form-control" id="formGroupExampleInput4" name = "idno" required value= {{user.idno}} disabled = true>
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Profession</label>
+            {% if user.is_student %}
+                <input type="text" class="form-control" id="formGroupExampleInput6" name = "idno" required value= "Student" disabled = true>
+            {% elif user.is_teacher%}
+                <input type="text" class="form-control" id="formGroupExampleInput6" name = "idno" required value= "Teacher" disabled = true>
+            {% else %}
+                <input type="text" class="form-control" id="formGroupExampleInput6" name = "idno" required value= "Unknown" disabled = true>
+            {% endif %}
+            
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Mobile Number</label>
+            <input type="text" class="form-control" id="formGroupExampleInput5" name = "mobile_number" required value= {{user.mobile_number}} disabled = true>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name = "email" required value= {{user.email}} disabled = true>
+            <small id="emailHelp" class="form-text text-muted" >We'll never share your email with anyone else.</small>
+        </div>
+        
+    </form>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <a class="btn btn-primary" href= "/edit-user-account/">Edit Details</a>
+    </div>
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            {% endfor %}
+    {% endif %}
+    
+</div>
+{% endblock body %}
+</html>
